@@ -9,9 +9,6 @@ cd /home
 DUMP_DIR="$(pwd)/$NOW"
 BUNDLE="$NOW.tar.gz"
 
-BUNDLE_DIR="$(pwd)/$BUNDLE"
-echo $DUMP_DIR
-
 sleep 2
 
 mkdir -p $DUMP_DIR 
@@ -48,7 +45,8 @@ then
     exit 1
 fi
 
-if awsoutput=$(aws s3 cp s3://$AWS_BUCKET_BACKUP_PATH --endpoint-url $AWS_BUCKET_URI 2>&1)
+
+if awsoutput=$(aws s3 cp $BUNDLE s3://$AWS_BUCKET_BACKUP_PATH --endpoint-url $AWS_BUCKET_URI 2>&1)
 then
     echo -e "Database backup successfully uploaded: $AWS_BUCKET_URI$AWS_BUCKET_BACKUP_PATH/$BUNDLE at $(date +'%d-%m-%Y %H:%M:%S')."
     exit 0
