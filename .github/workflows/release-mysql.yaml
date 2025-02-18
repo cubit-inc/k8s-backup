@@ -1,8 +1,10 @@
-name: relase images
+name: Release mysql image
 on:
   push:
     branches:
       - main
+    paths:
+      - mysql/**
 jobs:
   build_image:
     runs-on: ubuntu-latest
