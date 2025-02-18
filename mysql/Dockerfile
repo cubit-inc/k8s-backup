@@ -1,6 +1,6 @@
 FROM alpine:3
 
-RUN apk add --no-cache mysql-client mariadb-connector-c aws-cli curl
+RUN apk add --no-cache mysql-client mariadb-connector-c aws-cli
 
 WORKDIR /home
 
