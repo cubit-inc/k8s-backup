@@ -1,10 +1,10 @@
-name: Release mysql backup image
+name: Release postgres backup image
 on:
   push:
     branches:
       - main
     paths:
-      - mysql/**
+      - postgres/**
 jobs:
   build_image:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
             password: ${{  github.token }}
 
       - name: Build and publish images
-        run: just build-push-mysql
+        run: just build-push-postgres
         env:
           docker_user: ${{ github.actor }}
           docker_password: ${{ github.token }}

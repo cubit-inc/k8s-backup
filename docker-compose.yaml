@@ -16,7 +16,30 @@ services:
     environment:
       - DATABSE_PASSWORD=root_password
       - DATABASE_HOST=mysqldb
+      - AWS_BUCKET_BACKUP_PATH=test-sql-dumps
       - AWS_BUCKET_URI=${AWS_BUCKET_URI}
       - AWS_BUCKET_BACKUP_PATH=${AWS_BUCKET_BACKUP_PATH}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+  postgresdb:
+    image: postgres:17-alpine3.21
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root_password
+
+  postgres-backup:
+    build:
+        dockerfile: Dockerfile
+        context: postgres
+    depends_on:
+      - postgresdb
+    env_file:
+      - .env
+    environment:
+      - DATABASE_HOST=postgresdb
+      - DATABASE_PASSWORD=root_password
+      - AWS_BUCKET_BACKUP_PATH=test-psql-dumps
+      - AWS_BUCKET_URI=${AWS_BUCKET_URI}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
