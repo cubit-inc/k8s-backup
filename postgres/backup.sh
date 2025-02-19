@@ -22,7 +22,7 @@ else
 fi
 
 # Perform the database backup. Put the output to a variable. If successful upload the backup to S3, if unsuccessful print an entry to the console and the log, and set has_failed to true.
-if databases=`psql -h $DATABASE_HOST -U $DATABASE_USER -p $DATABASE_PORT -t -c "select datname from pg_database where not datistemplate" | grep '\S' | awk '{$1=$1};1' | egrep -v $ExcludeDatabases`
+if databases=`psql -h $DATABASE_HOST -U $DATABASE_USER -p $DATABASE_PORT -t -c "select datname from pg_database where not datistemplate" | tr -d "| " | grep -v $ExcludeDatabases`
 then
     for db in $databases; do
         echo "Dumping database: $db at $(date +'%d-%m-%Y %H:%M:%S')."
