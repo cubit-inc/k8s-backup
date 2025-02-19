@@ -6,19 +6,19 @@ NOW=$(date +%Y-%m-%d-%H-%M-%S)
 
 cd /home
 
-DUMP_DIR="$(pwd)/$NOW"
-BUNDLE="$NOW.tar.gz"
+DUMP_DIR="$NOW"
+BUNDLE="$NOW.sqls.tar.gz"
 
 sleep 2
 
 mkdir -p $DUMP_DIR 
 
 # Perform the database backup. Put the output to a variable. If successful upload the backup to S3, if unsuccessful print an entry to the console and the log, and set has_failed to true.
-if databases=`mariadb -h$DATABASE_HOST -P$DATABASE_PORT  -u$DATABSE_USER -p$DATABSE_PASSWORD --skip-ssl -e "SHOW DATABASES;" | tr -d "| " | egrep -v $ExcludeDatabases`
+if databases=`mariadb -h$DATABASE_HOST -P$DATABASE_PORT  -u$DATABASE_USER -p$DATABASE_PASSWORD --skip-ssl -e "SHOW DATABASES;" | tr -d "| " | egrep -v $ExcludeDatabases`
 then
     for db in $databases; do
         echo "Dumping database: $db at $(date +'%d-%m-%Y %H:%M:%S')."
-        if dump_output=$(mysqldump -h $DATABASE_HOST -P $DATABASE_PORT -u $DATABSE_USER -p$DATABSE_PASSWORD --skip-ssl --databases $db > $DUMP_DIR/$db.sql 2>&1)
+        if dump_output=$(mysqldump -h $DATABASE_HOST -P $DATABASE_PORT -u $DATABASE_USER -p$DATABASE_PASSWORD --skip-ssl --databases $db > $DUMP_DIR/$db.sql 2>&1)
         then
             echo -e "Database dumped: $db at $(date +'%d-%m-%Y %H:%M:%S')."
         else
