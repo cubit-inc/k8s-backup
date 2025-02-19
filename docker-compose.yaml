@@ -14,11 +14,10 @@ services:
     env_file:
       - .env
     environment:
-      - DATABSE_PASSWORD=root_password
+      - DATABASE_PASSWORD=root_password
       - DATABASE_HOST=mysqldb
       - AWS_BUCKET_BACKUP_PATH=test-sql-dumps
       - AWS_BUCKET_URI=${AWS_BUCKET_URI}
-      - AWS_BUCKET_BACKUP_PATH=${AWS_BUCKET_BACKUP_PATH}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 
