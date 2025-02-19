@@ -12,7 +12,7 @@ build-push-mysql:
 
 
 build-push-postgres:
-    docker build -t {{imageRepo}}/k8s-backup-postgres:latest -t {{imageRepo}}/k8s-backup-postgres:{{tag}} -f mysql/Dockerfile mysql
+    docker build -t {{imageRepo}}/k8s-backup-postgres:latest -t {{imageRepo}}/k8s-backup-postgres:{{tag}} -f postgres/Dockerfile postgres
     docker image push --all-tags {{imageRepo}}/k8s-backup-postgres
 
 build-push-images: build-push-mysql
