@@ -35,7 +35,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: postgres-backup
-              image: ghcr.io/cubit-inc/k8s-backup/k8s-backup-postgres:latest
+              image: ghcr.io/cubit-inc/k8s-backup/k8s-backup-postgres-17:latest
               env:
                 - name: DATABASE_HOST
                   value: mydb.example.com
