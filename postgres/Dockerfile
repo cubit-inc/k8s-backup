@@ -1,6 +1,8 @@
 FROM alpine:3
 
-RUN apk add --no-cache postgresql-client aws-cli
+ARG POSTGRES_VERSION
+
+RUN apk add --no-cache postgresql$POSTGRES_VERSION-client aws-cli
 
 WORKDIR /home
 

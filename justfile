@@ -11,8 +11,9 @@ build-push-mysql:
     docker image push --all-tags {{imageRepo}}/k8s-backup-mysql
 
 
-build-push-postgres:
-    docker build -t {{imageRepo}}/k8s-backup-postgres:latest -t {{imageRepo}}/k8s-backup-postgres:{{tag}} -f postgres/Dockerfile postgres
-    docker image push --all-tags {{imageRepo}}/k8s-backup-postgres
-
-build-push-images: build-push-mysql
+build-push-postgres version = "17":
+    docker build -t {{imageRepo}}/k8s-backup-postgres-{{version}}:latest \
+                 -t {{imageRepo}}/k8s-backup-postgres-{{version}}:{{tag}} \
+                 --build-arg POSTGRES_VERSION={{version}} \
+                 -f postgres/Dockerfile postgres
+    docker image push --all-tags {{imageRepo}}/k8s-backup-postgres-{{version}}
